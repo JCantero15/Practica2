@@ -14,6 +14,7 @@
     (bateria ?r-rover)
     (consumo_bateria ?r - rover)
     )
+    
     (:durative-action velocidad_rapida
       :parameters (?r - rover ?x ?y - position)
       :duration (= ?duration (/(distancia ?x ?y)2))
@@ -22,8 +23,6 @@
                     (estar_en ?r ?x) (stop ?r) (>= (bateria ?r) (* (distancia ?x ?y)2 ) )
                     )
           )
-        
-          
           (over all (and
                     (moverse ?x ?y)
                     )
