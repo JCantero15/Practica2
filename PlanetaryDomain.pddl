@@ -142,7 +142,7 @@
           )
       )
    )
-    (:durative-action perforar
+    (:durative-action recargar
       :parameters (?r - rover ?x - posicion)
       :duration (= ?duration 20)
       :condition (and 
@@ -162,7 +162,7 @@
                     )
           )
           (at end   (and
-                    (not (stop ?r)) (increase (bateria ?r) 20) (perforado ?r ?x)
+                    (not (stop ?r)) (increase (bateria ?r) 20) 
                     )
           )
         )
