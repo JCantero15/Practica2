@@ -2,58 +2,63 @@
     (:requirements :typing :equality :strips :fluents :durative-actions)
     (:types rover posicion)
     (:predicates
-
-	)
+    (lugar ?r-rover ?x - posicion)
+    (stop ?r - rover)
+    (moverse ?x ?y - posicion)
+        (estar_en ?r - rover ?x - rover)
+)
     (:functions
-
+    (distancia ?x ?y - posicion)
+    (bateria ?r-rover)
+    (consumo_bateria ?r - rover)
     )
     (:durative-action velocidad_rapida
-      :parameters ()
-      :duration ()
+      :parameters (?r - rover ?x ?y - position)
+      :duration (= ?duration (/(distancia ?x ?y)2))
       :condition (and 
-          (at start (
-
+          (at start (and
+                    (estar_en ?r ?x) (stop ?r) (>= (bateria ?r) (* (distancia ?x ?y)2 ) )
                     )
           )
-        )
+        
           
-          (over all (
-
+          (over all (and
+                    (moverse ?x ?y)
                     )
-          )
-    
+      ))
       :effect (and 
           (at start (and 
+                    (decrease (bateria ?r) (* (distancia ?x ?y) 2)) (not(stop ?r)) (not(estar_en ?r ?x))
                     )
           )
-          (at end (and
-
+          (at end   (and
+                    (estar_en ?r ?y) (stop ?r) (increase (consumo_bateria ?r) (* (distancia ?x ?y) 2))
                     )
           )
       )
    )
 
     (:durative-action velocidad_normal
-      :parameters ()
-      :duration ()
+      :parameters (?r - rover ?x ?y - position)
+      :duration (= ?duration (distancia ?x ?y))
       :condition (and 
-          (at start (
-
+          (at start (and
+                    (estar_en ?r ?x) (stop ?r) (>= (bateria ?r)  (distancia ?x ?y) )
                     )
           )
-        )
+        
           
-          (over all (
-
+          (over all (and
+                    (moverse ?x ?y)
                     )
-          )
-    
+      ))
       :effect (and 
           (at start (and 
+                    (decrease (bateria ?r) (distancia ?x ?y) ) (not(stop ?r)) (not(estar_en ?r ?x))
                     )
           )
-          (at end (and
-
+          (at end   (and
+                    (estar_en ?r ?y) (stop ?r) (increase (consumo_bateria ?r)  (distancia ?x ?y))
                     )
           )
       )
