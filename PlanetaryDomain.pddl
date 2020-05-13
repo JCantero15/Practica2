@@ -74,19 +74,19 @@
                     (estar_en ?r ?x) (>= (bateria ?r) 10)
                     )
           )
-      ) 
+       
           (over all (and
                     (estar_en ?r ?x) 
                     )
           )
-    
+      )
       :effect (and 
           (at start (and 
-                    (decrease (bateria ?r-rover) 10) (stop ?r)
+                    (decrease (bateria ?r) 10) (stop ?r)
                     )
           )
           (at end   (and
-                    (increase (consumo_bateria ?r) 10) (not(stop ?r)) (perforando ?r ?x)
+                    (increase (consumo_bateria ?r) 10) (not(stop ?r)) (perforado ?r ?x) 
                     )
           )
             )
@@ -99,12 +99,12 @@
                     (estar_en ?r ?x) (>= (bateria ?r) 5) 
                     )
           )
-      ) 
+      
           (over all (and
                     (estar_en ?r ?x) 
                     )
           )
-    
+      )
       :effect (and 
           (at start (and
                     (stop ?r)(decrease (bateria ?r) 5)
@@ -115,7 +115,7 @@
                     )
           )
             )
-      )
+    )
     (:durative-action hacer_foto
       :parameters (?r - rover ?x - posicion)
       :duration (= ?duration 10)
@@ -124,20 +124,20 @@
                     (estar_en ?r ?x) (<= (bateria ?r) 10)
                     )
           )
-        )
+        
           
           (over all (and
                     (estar_en ?r ?x)
                     )
           )
-    
+      )
       :effect (and 
           (at start (and 
                     (stop ?r) (decrease (consumo_bateria ?r) 10)
                     )
           )
           (at end (and
-                    (not (stop ?r)) (increase (consumo_bateria ?r-rover) 10) (foto_hecha ?r ?x)
+                    (not (stop ?r)) (increase (consumo_bateria ?r) 10) (foto_hecha ?r ?x)
                     )
           )
       )
@@ -150,19 +150,19 @@
                     (estar_en ?r ?x) (<= (bateria ?r) 20)
                     )
           )
-      ) 
+      
           (over all (and
                     (estar_en ?r ?x)
                     )
           )
-    
+      )
       :effect (and 
           (at start (and 
                     (stop ?r)
                     )
           )
           (at end   (and
-                    (not (stop ?r)) (increase (bateria ?r-rover) 20) (perforado ?r ?x)
+                    (not (stop ?r)) (increase (bateria ?r) 20) (perforado ?r ?x)
                     )
           )
         )
