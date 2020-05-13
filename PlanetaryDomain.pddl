@@ -6,7 +6,8 @@
     (stop ?r - rover)
     (moverse ?x ?y - posicion)
     (estar_en ?r - rover ?x - rover)
-    (perforando ?r - rover ?x - posicion)
+    (perforado ?r - rover ?x - posicion)
+    (foto_hecha ?r - rover ?x - posicion)
     )
     (:functions
     (distancia ?x ?y - posicion)
@@ -69,13 +70,13 @@
       :parameters (?r - rover ?x - posicion)
       :duration (= ?duration 10)
       :condition (and 
-          (at start (
+          (at start (and
                     (estar_en ?r ?x) (>= (bateria ?r) 10)
                     )
           )
       ) 
-          (over all (
-                    (estar_en ?r ?x)
+          (over all (and
+                    (estar_en ?r ?x) 
                     )
           )
     
@@ -90,50 +91,53 @@
           )
             )
       )
-    )
     (:durative-action comunicar
-      :parameters ()
-      :duration ()
+      :parameters (?r - rover ?x - posicion)
+      :duration (= ?duration 5)
       :condition (and 
-          (at start (
+          (at start (and
+                    (estar_en ?r ?x) (>= (bateria ?r) 5) 
                     )
           )
       ) 
-          (over all (
+          (over all (and
+                    (estar_en ?r ?x) 
                     )
           )
     
       :effect (and 
-          (at start (and 
+          (at start (and
+                    (stop ?r)(decrease (bateria ?r) 5)
                     )
           )
           (at end   (and
+                    (increase (consumo_bateria ?r) 5) (not(foto_hecha ?r ?x)) (not(perforado ?r ?x))
                     )
           )
             )
       )
-    )
     (:durative-action hacer_foto
-      :parameters ()
-      :duration ()
+      :parameters (?r - rover ?x - posicion)
+      :duration (= ?duration 10)
       :condition (and 
-          (at start (
-
+          (at start (and
+                    (estar_en ?r ?x) (<= (bateria ?r) 10)
                     )
           )
         )
           
-          (over all (
-
+          (over all (and
+                    (estar_en ?r ?x)
                     )
           )
     
       :effect (and 
           (at start (and 
+                    (stop ?r) (decrease (consumo_bateria ?r) 10)
                     )
           )
           (at end (and
-
+                    (not (stop ?r)) (increase (consumo_bateria ?r-rover) 10) (foto_hecha ?r ?x)
                     )
           )
       )
@@ -142,12 +146,12 @@
       :parameters (?r - rover ?x - posicion)
       :duration (= ?duration 20)
       :condition (and 
-          (at start (
-                    (estar_en ?r ?x) (<= (bateria ?r) 10)
+          (at start (and
+                    (estar_en ?r ?x) (<= (bateria ?r) 20)
                     )
           )
       ) 
-          (over all (
+          (over all (and
                     (estar_en ?r ?x)
                     )
           )
@@ -158,10 +162,11 @@
                     )
           )
           (at end   (and
-                    (not (stop ?r)) (increase (bateria ?r-rover) 20)
+                    (not (stop ?r)) (increase (bateria ?r-rover) 20) (perforado ?r ?x)
                     )
           )
         )
-      )
+    )
 
 )
+
