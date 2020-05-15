@@ -5,6 +5,11 @@
         (plantaAscen ?ascensor - ascensor ?n - numero)
         (superior ?n1 ?n2 - nuemro)
         (puedellegar ?ascensor - ascensor ?n1 - numero)
+        (plantaAscen ?ascensor - ascensor ?n - numero)
+        (personaEn ?p - personar ?n1 - numero)
+        (numPasajeros ?ascensor - ascensor ?n2 - numero)
+        (montado ?ascensor - ascensor ?p - persona)
+
     )
     (:functions
         (movimientoRapido ?n1 ?n2 - numero)
@@ -51,7 +56,7 @@
     :parameters(?p - persona ?ascensor - ascensor ?n1 ?n2 - numero)
     :duration(= ?duration 1)
     :condition(and (at start (and (plantaAscen ?ascensor ?n1) (montado ?ascensor ?p) (numPasajeros ?ascensor ?n2))))
-    :effect(and (at end (and (personaEN ?p ?n1) (not (montado ?ascensor ?p)) (numPasajeros ?ascensor (- ?n2 1)))))
+    :effect(and (at end (and (personaEn ?p ?n1) (not (montado ?ascensor ?p)) (numPasajeros ?ascensor (- ?n2 1)))))
     )
 
 )
