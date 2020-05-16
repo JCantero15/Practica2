@@ -8,7 +8,7 @@
         pos3 - posicion
     )
     (:init
-        (=(bateria r1)50)
+        (=(bateria r1)30)
         (= (consumo_bateria r1)0)
         (= (distancia pos1 pos2) 5)        
         (= (distancia pos2 pos1) 5) 
@@ -26,7 +26,8 @@
           
     )
     (:goal (and
-        (estar_en r1 pos3)
+        (estar_en r1 pos1)
+        (foto_hecha r1 pos2)
         (perforado r1 pos2)
         (perforado r1 pos3)        
     ))

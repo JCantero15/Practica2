@@ -5,7 +5,7 @@
     (lugar ?r-rover ?x - posicion)
     (stop ?r - rover)
     (moverse ?x ?y - posicion)
-    (estar_en ?r - rover ?x - rover)
+    (estar_en ?r - rover ?x - posicion)
     (perforado ?r - rover ?x - posicion)
     (foto_hecha ?r - rover ?x - posicion)
     )
@@ -16,7 +16,7 @@
     )
     
     (:durative-action velocidad_rapida
-      :parameters (?r - rover ?x ?y - position)
+      :parameters (?r - rover ?x ?y - posicion)
       :duration (= ?duration (/(distancia ?x ?y)2))
       :condition (and 
           (at start (and
@@ -40,7 +40,7 @@
    )
 
     (:durative-action velocidad_normal
-      :parameters (?r - rover ?x ?y - position)
+      :parameters (?r - rover ?x ?y - posicion)
       :duration (= ?duration (distancia ?x ?y))
       :condition (and 
           (at start (and
@@ -95,7 +95,7 @@
       :duration (= ?duration 5)
       :condition (and 
           (at start (and
-                    (estar_en ?r ?x) (>= (bateria ?r) 5) 
+                    (estar_en ?r ?x) (>= (bateria ?r) 5) (foto_hecha ?r ?x) (perforado ?r ?x)
                     )
           )
       
@@ -123,8 +123,6 @@
                     (estar_en ?r ?x) (<= (bateria ?r) 10)
                     )
           )
-        
-          
           (over all (and
                     (estar_en ?r ?x)
                     )
